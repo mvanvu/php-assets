@@ -4,7 +4,7 @@ Php Assets Manager package
 ```json
 {
 	"require": {
-		"mvanvu/php-registry": "~1.0"
+		"mvanvu/php-assets": "~1.0"
 	}
 }
 ```
@@ -12,7 +12,7 @@ Php Assets Manager package
 Alternatively, from the command line:
 
 ```sh
-composer require mvanvu/php-registry
+composer require mvanvu/php-assets
 ```
 
 ## About
