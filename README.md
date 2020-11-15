@@ -40,6 +40,9 @@ Assets::addFiles(
 Assets::inlineCss('body {margin: 0; padding: 0}');
 Assets::inlineJs('alert("It works")');
 
+// Compress assets
+Assets::compress();
+
 // Render Header
 echo Assets::output('css');
 echo Assets::output('inlineCss');
