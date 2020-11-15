@@ -152,9 +152,10 @@ class Assets
 
 		if (null === $publicUri)
 		{
+
 			if (strpos($publicPath, $scriptDirName) === 0)
 			{
-				$publicUri = substr($publicPath, strlen($scriptDirName));
+				$publicUri = substr($publicPath, strlen($scriptDirName)) . '/' . basename($scriptDirName);
 			}
 			else
 			{
@@ -196,7 +197,14 @@ class Assets
 
 			foreach ($files as $file)
 			{
-				$compressor->add($file);
+				if (preg_match('/^https?:/', $file))
+				{
+					static::$callBack($file);
+				}
+				else
+				{
+					$compressor->add($file);
+				}
 			}
 
 			if (!is_dir($publicPath . '/compressed/'))
