@@ -1,6 +1,20 @@
 # php-assets
 Php Assets Manager package
 
+```json
+{
+	"require": {
+		"mvanvu/php-registry": "~1.0"
+	}
+}
+```
+
+Alternatively, from the command line:
+
+```sh
+composer require mvanvu/php-registry
+```
+
 ## About
 * Using while you're handling Php and want to dynamic adding the css/js assets contents
 * Auto minifies the assets contents (Thanks to matthiasmullie/minify)
