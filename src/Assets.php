@@ -152,7 +152,6 @@ class Assets
 
 		if (null === $publicUri)
 		{
-
 			if (strpos($publicPath, $scriptDirName) === 0)
 			{
 				$publicUri = substr($publicPath, strlen($scriptDirName)) . '/' . basename($scriptDirName);
