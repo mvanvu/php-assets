@@ -87,8 +87,8 @@ class Assets
 	public static function addFile($baseFile, $basePath = null)
 	{
 		static $addedFiles = [];
+		$key      = ($basePath ?: '') . ':' . $baseFile;
 		$basePath = $basePath ?: static::getPublicBasePath();
-		$key      = $basePath . ':' . $baseFile;
 
 		if (array_key_exists($key, $addedFiles))
 		{
