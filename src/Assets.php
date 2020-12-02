@@ -112,11 +112,7 @@ class Assets
 
 		$file = null;
 
-		if (preg_match('/^https?:/', $baseFile))
-		{
-			$file = $baseFile;
-		}
-		elseif (is_file($baseFile))
+		if (is_file($baseFile))
 		{
 			$file = realpath($baseFile);
 		}
@@ -196,14 +192,7 @@ class Assets
 
 			foreach ($files as $file)
 			{
-				if (preg_match('/^https?:|\.min\.(css|js)$/', $file))
-				{
-					static::$callBack($file);
-				}
-				else
-				{
-					$compressor->add($file);
-				}
+				$compressor->add($file);
 			}
 
 			if (!is_dir($publicPath . '/compressed/'))
@@ -239,22 +228,22 @@ class Assets
 		return isset(static::$outputs[$type]) ? implode(PHP_EOL, static::$outputs[$type]) : '';
 	}
 
-	protected static function buildCss($uri)
+	public static function buildCss($uri)
 	{
 		static::$outputs['css'][preg_replace('/\?.*$/', '', $uri)] = '<link rel="stylesheet" href="' . $uri . '" type="text/css"/>';
 	}
 
-	protected static function buildJs($uri)
+	public static function buildJs($uri)
 	{
 		static::$outputs['js'][preg_replace('/\?.*$/', '', $uri)] = '<script src="' . $uri . '"></script>';
 	}
 
-	protected static function buildInlineJs($js)
+	public static function buildInlineJs($js)
 	{
 		static::$outputs['inlineJs'][] = '<script>' . PHP_EOL . $js . PHP_EOL . '</script>';
 	}
 
-	protected static function buildInlineCss($css)
+	public static function buildInlineCss($css)
 	{
 		static::$outputs['inlineCss'][] = '<style>' . PHP_EOL . $css . PHP_EOL . '</style>';
 	}
