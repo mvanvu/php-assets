@@ -196,7 +196,7 @@ class Assets
 
 			foreach ($files as $file)
 			{
-				if (preg_match('/^https?:/', $file))
+				if (preg_match('/^https?:|\.min\.(css|js)$/', $file))
 				{
 					static::$callBack($file);
 				}
