@@ -95,17 +95,10 @@ class Assets
 			return;
 		}
 
+		preg_match('/\.(css|js)(\?.*)?$/', $baseFile, $matches);
 		$addedFiles[$key] = true;
 
-		if (preg_match('/\.js(\?.*)?$/', $baseFile))
-		{
-			$t = 'js';
-		}
-		elseif (preg_match('/\.css(\?.*)?$/', $baseFile))
-		{
-			$t = 'css';
-		}
-		else
+		if (!$t = ($matches[1] ?? null))
 		{
 			return;
 		}
@@ -228,14 +221,38 @@ class Assets
 		return isset(static::$outputs[$type]) ? implode(PHP_EOL, static::$outputs[$type]) : '';
 	}
 
-	public static function buildCss($uri)
+	public static function buildCss($uri, $attributes = [])
 	{
-		static::$outputs['css'][preg_replace('/\?.*$/', '', $uri)] = '<link rel="stylesheet" href="' . $uri . '" type="text/css"/>';
+		static::$outputs['css'][static::prepareUri($uri)] = '<link rel="stylesheet" href="' . $uri . '" type="text/css"' . static::parseAttributes($attributes) . '/>';
 	}
 
-	public static function buildJs($uri)
+	protected static function prepareUri($uri)
 	{
-		static::$outputs['js'][preg_replace('/\?.*$/', '', $uri)] = '<script src="' . $uri . '"></script>';
+		return preg_replace('/\?.*$/', '', $uri);
+	}
+
+	protected static function parseAttributes($attributes)
+	{
+		$results = [];
+
+		foreach ($attributes as $key => $value)
+		{
+			if (is_integer($key))
+			{
+				$results[] = $value;
+			}
+			else
+			{
+				$results[] = $key . '="' . htmlspecialchars($value, ENT_COMPAT, 'UTF-8') . '"';
+			}
+		}
+
+		return $results ? ' ' . implode(' ', $results) : '';
+	}
+
+	public static function buildJs($uri, $attributes = [])
+	{
+		static::$outputs['js'][static::prepareUri($uri)] = '<script src="' . $uri . '"' . static::parseAttributes($attributes) . '></script>';
 	}
 
 	public static function buildInlineJs($js)
