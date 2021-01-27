@@ -1,4 +1,7 @@
 # php-assets
+## Deprecated
+### Since the Php-form version 1.0.1 has removed the php-assets | Don't use this anymore
+
 Php Assets Manager package
 
 ```json
